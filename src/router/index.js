@@ -9,6 +9,7 @@ import Detail from '../components/detail'
 import Message from '../components/message'
 import Login from '../components/login'
 import Register from '../components/register'
+import More from '../components/more'
 
 Vue.use(Router)
 
@@ -33,6 +34,10 @@ export default new Router({
     {
       path: '/message',
       component: Message
+    },
+    {
+      path: '/more',
+      component: More
     },
     {
       path: '/login',
