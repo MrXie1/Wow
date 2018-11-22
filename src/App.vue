@@ -40,7 +40,6 @@
 
   body{
     font-size: .16rem;
-    background: #F5F5F5;
   }
 
   ul,li{
