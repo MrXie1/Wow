@@ -15,9 +15,24 @@ module.exports = {
             target:"https://m.wowdsgn.com",
             host:"m.wowdsgn.com",
             changeOrigin:true      //切换原
+        },
+        "/pages":{
+            target:"https://m.wowdsgn.com",
+            host:"m.wowdsgn.com",
+            changeOrigin:true
+        },
+        "/itemdetail":{
+            target:"https://m.wowdsgn.com",
+            host:"m.wowdsgn.com",
+            changeOrigin:true
+        },
+        "/recommend":{
+            target:"https://m.wowdsgn.com",
+            host:"m.wowdsgn.com",
+            changeOrigin:true
         }
     },
-
+    // https://m.wowdsgn.com/recommend/item?skuId=9027&_=1542800227871
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
