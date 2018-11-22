@@ -20,7 +20,7 @@
             <el-input placeholder="请输入验证码" class="input"></el-input>
           </el-tab-pane>
       </el-tabs>
-      <el-button type="primary" class="confirm">确认</el-button>
+      <input type="button" id="loginBtn" name="submit" value="确认">
     </div>
   </div>
 </template>
@@ -68,8 +68,12 @@ export default {
     .out{
       margin-bottom: .1rem;
     }
-    .confirm{
-      width: 100%;
+    input[name="submit"]{
+      height: .44rem;
+      width: 3.4rem;
+      background: #FFD444;
+      text-align: center;
+      line-height: .44rem;
     }
   }
 </style>
