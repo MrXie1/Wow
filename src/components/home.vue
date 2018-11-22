@@ -1,0 +1,25 @@
+
+<template>
+  <div >
+    home
+  </div>
+</template>
+  
+<script>
+export default {
+  name: 'detail',
+  data () {
+    return {
+    }
+  },
+
+  methods:{
+
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+ 
+</style>
