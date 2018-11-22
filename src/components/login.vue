@@ -45,6 +45,13 @@ export default {
   .iconfont{
     font-size: .20rem;
   }
+  .el-tabs__item:hover {
+    color: #FFD444; 
+    cursor: pointer;
+  }
+  .el-tabs__item.is-active {
+    color: #FFD444; 
+  }
   nav{
     position: relative;
     height: .45rem;

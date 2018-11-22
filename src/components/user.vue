@@ -1,15 +1,20 @@
 <template>
   <div >
-    card
+    <login></login>
   </div>
 </template>
   
 <script>
+import login from './login'
 export default {
   name: 'user',
   data () {
     return {
     }
+  },
+
+  components:{
+    login
   },
 
   methods:{
