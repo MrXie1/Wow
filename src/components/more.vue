@@ -62,7 +62,7 @@ export default {
   },
   mounted(){
       Indicator.open({
-      text: '加载中。。。。。',
+      text: '加载中........',
       spinnerType: 'fading-circle'
     });
       axios.get(`/pages/productGroup/11788/products?pageNumber=1&_=${new Date().getTime()}`).then(res=>{

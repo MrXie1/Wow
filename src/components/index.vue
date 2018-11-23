@@ -95,7 +95,7 @@ export default {
           float:left;
           background-color: #F5F5F5;
           display: inline-block;
-          width: 80%;
+          width: 70%;
           height: 0.3rem;
           border-radius: 0.2rem;
           border:none;
@@ -119,18 +119,15 @@ export default {
       ul{
         
         width: 100%;
-        margin:0rem 0.15rem;
         display:flex;
         justify-content:space-around;
         li{
           color:gray;
-          margin:0rem 0.13rem;
           height:0.4rem;
           line-height: 0.3rem;
           flex:1;
           float:left;
           text-align: center;
-          /*border-bottom: 0.03rem solid black;*/
         }
       }
     }
