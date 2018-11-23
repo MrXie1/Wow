@@ -3,10 +3,14 @@
   <!-- 头部搜索框 -->
       <div class="header">
         <img src="../../static/img/titleView.png" alt="">
-        <div class="search">
+        <!-- <div class="search">
           <i class="iconfont icon-sousuo"></i>
           <input type="text" placeholder="              搜索我的尖叫好物">
-        </div>
+        </div> -->
+      </div>
+      <div id="searchInfo">
+        <img id="searchIcon" src="/static/searchIcon-e1.png">
+        <input type="search" id="searchInput" name="searchInput" placeholder="搜索我的尖叫好物">
       </div>
   <!-- 动态组件导航栏 -->
       <div class="nav">
@@ -68,18 +72,29 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+
+#searchInfo {
+  background: #f5f5f5; width: 67%; height: .28rem; border-radius: .2rem; position: relative; left: 0; top: 0; margin-left: .03rem; float: left; margin-top: .12rem;
+  #searchIcon {
+    width: .2rem; height: .2rem; position: absolute; left: .06rem; top: .04rem;
+  }
+  #searchInput {
+      height: .28rem; position: absolute; left: .4rem; top: 0; border: none; outline: none; background: #f5f5f5;
+  }
+}
  /*------------------头部搜索框----------------*/
-    .main{
+   .main{
       overflow:hidden;
     }
     .header{
       overflow:hidden;
       box-sizing:border-box;
-      width:100%;
+      width: 1rem;
       height: 0.44rem;
       padding:0.2rem;
       padding-bottom: 0rem;
       margin-bottom: 0.1rem;
+      float:left;
       img{
           height:0.16rem;
           width:0.65rem; 
@@ -88,7 +103,7 @@ export default {
           float:left;
           
       }
-      .search {
+      /*.search {
         
           input{
           position: absolute;
@@ -109,8 +124,8 @@ export default {
           left:1.2rem;
           top:0.15rem;
           font-size: 0.18rem;
-        }
-      }
+        }*/
+      /*}*/
 
     }
     /*------------------动态组件导航栏----------------*/

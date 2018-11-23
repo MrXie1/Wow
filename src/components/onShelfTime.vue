@@ -1,22 +1,20 @@
 <template>
   <div class="onShelfTime">
-    <ul class="clear" v-infinite-scroll="loadMore"
-  infinite-scroll-disabled="loading"
-  infinite-scroll-immediate-check= "false"
-  infinite-scroll-distance="0">
+    <ul class="clear" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-immediate-check= "false" infinite-scroll-distance="0">
       <li v-for="data in datalist">
         <img :src="data.productImg">
         <p class="title">{{data.productTitle}}</p>
         <p class="price">￥{{data.sellPrice}}</p>
       </li>
     </ul>
+    <img v-show="go2topShow" src="/static/backTop.png" id="go2top" @clcik="go2topMove">
     <!-- <p>{{msg}}</p> -->
   </div>
 </template>
   
 <script>
 import axios from 'axios'
-import { Indicator } from 'mint-ui'
+// import { Indicator } from 'mint-ui'
 import { InfiniteScroll } from 'mint-ui'
 export default {
   name: 'onShelfTime',
@@ -25,39 +23,43 @@ export default {
       datalist: [],
       pageNumber: 1,
       total: 0,
-      loading: false,
-      msg: '正在加载中...'
+      go2topShow: false,
+      loading: false
+      // msg: '正在加载中...'
     }
   },
   mounted () {
-    Indicator.open({
-      text: '加载中...',
-      spinnerType: 'fading-circle'
-    })
+    // Indicator.open({
+    //   text: '加载中...',
+    //   spinnerType: 'fading-circle'
+    // })
     axios.get("/pages/category/20?pageNumber=1&orderBy=onShelfTime&sort=desc&_=1542852491696").then(res=>{
       this.datalist = res.data.data.products
       this.total = 4
-      console.log(this.datalist)
+      // console.log(this.datalist)
     })
-    Promise.all([axios.get("/pages/category/20?pageNumber=1&orderBy=onShelfTime&sort=desc&_=1542852491696")]).then(res=>{
-      
-      Indicator.close()
-    })
+    // Promise.all([axios.get("/pages/category/20?pageNumber=1&orderBy=onShelfTime&sort=desc&_=1542852491696")]).then(res=>{
+    //   // Indicator.close()
+    // })
   },
 
   methods:{
     loadMore () {
-      console.log("到底了")
+      // console.log("到底了")
       this.pageNumber++;
       if(this.pageNumber>this.total){
         this.loading = true //禁用
-        this.msg= "到底了！！";
+        // this.msg= "到底了！！";
         return ;
       }
       axios.get(`/pages/category/20?pageNumber=${this.pageNumber}&orderBy=onShelfTime&sort=desc&_=1542852491696`).then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
+        // this.loading = false
         this.datalist = [...this.datalist,...res.data.data.products]
       })
+    },
+    go2topMove () {
+     
     }
   }
 }
@@ -80,6 +82,9 @@ export default {
           height: .18rem; line-height: .18rem; 
         }
       }
+    }
+    #go2top {
+      width: .4rem; height: .4rem; position: fixed; right: .12rem; bottom: .62rem;
     }
   }
 </style>
