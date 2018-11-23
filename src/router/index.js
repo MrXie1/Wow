@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Index from '../components/index'
 import Category from '../components/category'
+import List from '../components/list'
 import Cart from '../components/cart'
 import User from '../components/user'
 import Detail from '../components/detail'
@@ -22,6 +23,10 @@ export default new Router({
     {
       path: '/category',
       component: Category
+    },
+    {
+      path: '/list',
+      component: List
     },
     {
       path: '/cart',
