@@ -53,9 +53,10 @@ export default new Router({
       component: Register
     },
     {
-      path: '/item/:productid',
+      path: '/item/:ylyid',
       component: Detail
     },
+
     {
 	    path:'*',
 	    redirect:'/index'

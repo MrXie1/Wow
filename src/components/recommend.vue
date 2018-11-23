@@ -39,7 +39,11 @@
                                       <p class="price">￥{{pros.sellPrice}}</p>
                                  </div>
                              </div>
-                             <a href="/productGroup/11788">查看全部</a>
+                             <router-link to="/more">
+                              <div @click="footerhide()">
+                                查看全部
+                              </div>
+                             </router-link>
                         </div>
                 </div>
                 
@@ -67,12 +71,14 @@
       return {
         datalist:[],
         src:[],
-       
+        hide:false
       }
     },
 
     methods:{
-
+      footerhide(){
+        this.$store.commit("footerbarhide",this.hide)
+      }
     },
     mounted(){
       //加载中

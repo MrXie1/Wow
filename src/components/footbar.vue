@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <ul>
+    <ul v-show="$store.state.hide">
       <router-link to="/index" tag="li" activeClass="active">
         <i class="iconfont icon-shouye"></i>
         <p>首页</p>
