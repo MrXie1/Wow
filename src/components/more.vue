@@ -36,7 +36,7 @@ export default {
       current:1,//页数
       total:0,
       hide:true,
-      msg:'正在加载中....'//定义的个数
+      msg:'正在加载中....'
     }
   },
 
@@ -49,13 +49,12 @@ export default {
      this.current++;
       if(this.current > 2){
         this.loading = true;
-        this.msg = '没有更多了'
+        this.msg = '没有更多了';
         return;
       }
       axios.get(`/pages/productGroup/11788/products?pageNumber=${this.current}&_=${new Date().getTime()}`).then(res=>{
         this.datalist = [...this.datalist,...res.data.data.products]
         this.$store.commit("getParentproductId",this.datalist)
-
         
       })
      

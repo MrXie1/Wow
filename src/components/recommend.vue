@@ -1,5 +1,8 @@
 <template>
    <div class="main">
+      <div>
+        <button type="button" class="back-top small" @click="backTop()" v-show="backTopShow">Top</button>
+      </div>
     <!-- 引入轮播图 -->
         <div class="module1 swiper-container">
              <div class="swiper-wrapper">
@@ -12,9 +15,15 @@
              
         </div>
         <!-- 内容部分 -->
-        <section v-for="data in datalist"> 
+        <section v-for="data in datalist" 
+              v-infinite-scroll="loadMore"
+              infinite-scroll-disabled="loading"
+              infinite-scroll-distance="0"
+              infinite-scroll-immediate-check='false'>
+              
           
-            <div class="content">
+            <div class="content" >
+              
                  <h2>{{data.moduleName}}</h2>
                  <p>{{data.moduleDescription}}</p> 
                  <div v-if="data.moduleContent.banners">
@@ -44,12 +53,14 @@
                                 查看全部
                               </div>
                              </router-link>
+                             <router-link to='/more' class="more">查看全部</router-link>
                         </div>
                 </div>
                 
             </div>
             
         </section>
+        <p >{{msg}}</p>
    </div>
 </template>
   
@@ -62,7 +73,10 @@
 
   //引入加载中库
   import { Indicator } from 'mint-ui';
- 
+  // 引入无限滚动
+  import { InfiniteScroll } from 'mint-ui';
+  Vue.use(InfiniteScroll);
+  import Vue from "vue";
 
 
   export default {
@@ -71,16 +85,49 @@
       return {
         datalist:[],
         src:[],
-        hide:false
+        hide:false,
+        backTopShow:false,
+        loading:false,
+        msg:"正在加载中.....",
+        last:[],
+        num:10
       }
     },
 
     methods:{
       footerhide(){
         this.$store.commit("footerbarhide",this.hide)
-      }
+      },
+      backTop() {
+        let back = setInterval(() => {
+          if(document.body.scrollTop||document.documentElement.scrollTop){
+            document.body.scrollTop-=100;
+            document.documentElement.scrollTop-=100;
+          }else {
+            clearInterval(back)
+          }
+        },100)
+      },
+        handleScroll(){
+          if (document.documentElement.scrollTop + document.body.scrollTop > 100) {
+            this.backTopShow=true;
+          }
+          else {
+            this.backTopShow=false;
+          }
+        }
+    },
+    // 无限滚动
+    loadMore(){
+      console.log(aaaaa)
+         for(var i=0; i<11;i++){
+             num++;
+             this.last.push(this.datalist[this.num])
+         }
     },
     mounted(){
+      // 回到顶部
+      window.addEventListener('scroll', this.handleScroll)
       //加载中
       Indicator.open({
           text: '正在加载中...',
@@ -89,6 +136,7 @@
      // 请求数据
         axios.get("/v2/page?pageId=1&tabId=1&_=1542783616113").then(res=>{
         this.datalist=res.data.data.modules.slice(1)
+        this.last=this.datalist.slice(0,10)
         // console.log(res.data.data.modules.slice(1))
         this.src=res.data.data.modules[0].moduleContent.banners
          // console.log(res.data.data.modules.slice(1)[2].moduleContent.products) 
@@ -131,7 +179,23 @@
 </script>
 
 <style scoped lang="scss">
-    .module2 a{
+     .small {
+    position: fixed;
+    right: 0.1rem;
+    bottom: 0.6rem;
+    z-index: 20;
+    width:0.5rem;
+    height:0.5rem;
+    background:lightgray;
+    text-align: center;
+    line-height: 0.4rem;
+    color:white;
+    font-size: 0.2rem;
+    border-radius: 50%;
+    border:none;
+    
+  }
+    .module2 .more{
       color:black;
       text-align: center;
       margin-left: 1.5rem;

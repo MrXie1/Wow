@@ -36,8 +36,11 @@ export default {
   name: 'category',
   data () {
     return {
+      //  {休闲椅2012替换掉了，name:'桌几',id:''}
+      // list1: [{name:'沙发',id:20},{name:'椅凳',id:21},{name:'休闲椅',id:2012},{name:'床',id:2310},{name:'柜架',id:24},{name:'餐桌',id:2210},{name:'茶几和边桌',id:2211},{name:'书桌',id:2212},{name:'隔断',id:2414}],
+      // list2: [{name:'灯具',id:25},{name:'用餐',id:26},{name:'时尚生活',id:32},{name:'烹饪',id:27},{name:'纺织品',id:28},{name:'家饰',id:29},{name:'卫浴',id:31}]
     }
-  },
+  },   
 
   methods:{
 

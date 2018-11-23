@@ -58,6 +58,7 @@ export default {
       who2: 'onShelfTime',
       list1: ['ALL','沙发','椅凳','柜架','休闲椅','餐桌','茶几和边桌','书桌' ,'床','隔断'],
       list2: ['上新', '销量', '价格'],
+      //  list2: [{name: '上新',key: 'onShelfTime'},{name: '销量',key: 'sales'},{name: '价格',key: 'price'}]
       current1: 0,
       current2: 0
     }
