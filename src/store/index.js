@@ -13,14 +13,14 @@ const store = new Vuex.Store({
 		datalist:[],
 		list:[],
 		src:[],
-		hide:true
+		hide:true,
+		indexList:[]
 
 
 	},
 	mutations:{
 		changeParentproductId(state,payload){
 			state.parentProductId = payload;
-			console.log(payload);
 
 		},
 		getFinuturelist(state,payload){
@@ -31,11 +31,13 @@ const store = new Vuex.Store({
 			  
 		},
 		getParentproductId(state,payload){
+			console.log(payload);
 			state.datalist = payload;
+			
 		},
-		footerbarhide(state,payload){
-			state.hide = payload
-
+		getProductInfo(state,payload){
+			console.log(payload);
+			state.indexList = payload;
 		}
 	},
 	//异步
