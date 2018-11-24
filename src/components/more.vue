@@ -8,7 +8,7 @@
        infinite-scroll-disabled="loading"
        infinite-scroll-immediate-check ="false"
        infinite-scroll-distance="10">
-      <li v-for ="data in datalist" @click = "handleClick(data.productId,data.parentProductId)">
+      <li v-for ="data in datalist" @click = "handleClick(data.productId)">
         <img :src="data.productImg" alt="">
         <div class="p">
           <p class="title">{{data.productTitle}}</p>
@@ -43,7 +43,8 @@ export default {
 
   methods:{
     handleClick(productId){
-      this.$router.push('/item/' + productId)
+      this.$store.commit("getGroupId",this.$route.params.groupId)
+      this.$router.push('/item/' + productId);
     },
     loadMore() {
      this.current++;
@@ -52,7 +53,8 @@ export default {
         this.msg = '没有更多了';
         return;
       }
-      axios.get(`/pages/productGroup/10013/products?pageNumber=${this.current}&_=${new Date().getTime()}`).then(res=>{
+      console.log(this.$route.params.groupId)
+      axios.get(`/pages/productGroup/${this.$route.params.groupId}/products?pageNumber=${this.current}&_=${new Date().getTime()}`).then(res=>{
         this.datalist = [...this.datalist,...res.data.data.products]
         this.$store.commit("getParentproductId",this.datalist)
         
@@ -70,7 +72,8 @@ export default {
       text: '加载中....',
       spinnerType: 'fading-circle'
     });
-      axios.get(`/pages/productGroup/10013/products?pageNumber=1&_=${new Date().getTime()}`).then(res=>{
+
+      axios.get(`/pages/productGroup/${this.$route.params.groupId}/products?pageNumber=1&_=${new Date().getTime()}`).then(res=>{
         this.datalist = res.data.data.products;
         this.$store.commit("getParentproductId",this.datalist)
         Indicator.close();

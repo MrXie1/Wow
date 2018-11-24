@@ -47,7 +47,7 @@ export default new Router({
       component: Message
     },
     {
-      path: '/more',
+      path: '/productGroup/:groupId',
       component: More
     },
     {

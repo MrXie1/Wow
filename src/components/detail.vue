@@ -151,7 +151,8 @@ export default {
       detailList:[],
       current:1,
       hide:false,
-      indexList:[]
+      indexList:[],
+      groupId:''
     }
   },
   inject:['reload'],
@@ -185,20 +186,23 @@ export default {
       }
       this.$store.commit('getParentproductId',this.list) 
     });
+
     //查看全部page=1的数据
-    fetch(`/pages/productGroup/10013/products?pageNumber=1&_=${new Date().getTime()}`).then(res=>{
+    fetch(`/pages/productGroup/${this.$store.state.groupId}/products?pageNumber=1&_=${new Date().getTime()}`).then(res=>{
       return res.json()
     }).then(res=>{
       this.detailList = res.data.products;
       console.log(this.detailList)
       for(var i=0;i<this.detailList.length;i++){
         if(this.detailList[i].productId == this.$route.params.ylyid){
+          console.log(this.detailList[i].productId)
           this.shuzu2 = this.detailList[i]
         }
       }  
     });
     //查看全部page=2的数据
-    fetch(`/pages/productGroup/10013/products?pageNumber=2&_=${new Date().getTime()}`).then(res=>{
+    console.log(this.$store.state.groupId)
+    fetch(`/pages/productGroup/${this.$store.state.groupId}/products?pageNumber=2&_=${new Date().getTime()}`).then(res=>{
       return res.json()
     }).then(res=>{
       this.detailList = res.data.products;
