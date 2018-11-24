@@ -30,7 +30,13 @@ module.exports = {
             target:"https://m.wowdsgn.com",
             host:"m.wowdsgn.com",
             changeOrigin:true
+        },
+        "/product":{
+            target:"https://m.wowdsgn.com",
+            host:"m.wowdsgn.com",
+            changeOrigin:true
         }
+
     },
 
     // Various Dev Server settings

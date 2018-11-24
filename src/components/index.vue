@@ -3,14 +3,10 @@
   <!-- 头部搜索框 -->
       <div class="header">
         <img src="../../static/img/titleView.png" alt="">
-        <!-- <div class="search">
-          <i class="iconfont icon-sousuo"></i>
-          <input type="text" placeholder="              搜索我的尖叫好物">
-        </div> -->
       </div>
       <div id="searchInfo">
         <img id="searchIcon" src="/static/searchIcon-e1.png">
-        <input type="search" id="searchInput" name="searchInput" placeholder="搜索我的尖叫好物">
+        <input type="search" id="searchInput" name="searchInput" placeholder="搜索我的尖叫好物" @click="handleSearch">
       </div>
   <!-- 动态组件导航栏 -->
       <div class="nav">
@@ -59,6 +55,9 @@ export default {
            else {
               this.who ='active';
             }
+       },
+       handleSearch(){
+        this.$router.push('/search/view')
        }
   },
   components:{
@@ -72,7 +71,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
+/*------------------头部搜索框----------------*/
 #searchInfo {
   background: #f5f5f5; width: 67%; height: .28rem; border-radius: .2rem; position: relative; left: 0; top: 0; margin-left: .03rem; float: left; margin-top: .12rem;
   #searchIcon {
@@ -82,7 +81,7 @@ export default {
       height: .28rem; position: absolute; left: .4rem; top: 0; border: none; outline: none; background: #f5f5f5;
   }
 }
- /*------------------头部搜索框----------------*/
+ 
    .main{
       overflow:hidden;
     }
@@ -110,7 +109,7 @@ export default {
           float:left;
           background-color: #F5F5F5;
           display: inline-block;
-          width: 70%;
+          width: 80%;
           height: 0.3rem;
           border-radius: 0.2rem;
           border:none;
@@ -134,15 +133,18 @@ export default {
       ul{
         
         width: 100%;
+        /*margin:0rem 0.15rem;*/
         display:flex;
         justify-content:space-around;
         li{
           color:gray;
+          /*margin:0rem 0.13rem;*/
           height:0.4rem;
           line-height: 0.3rem;
           flex:1;
           float:left;
           text-align: center;
+          /*border-bottom: 0.03rem solid black;*/
         }
       }
     }

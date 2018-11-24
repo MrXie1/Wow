@@ -11,6 +11,8 @@ import Message from '../components/message'
 import Login from '../components/login'
 import Register from '../components/register'
 import More from '../components/more'
+import View from '../components/view'
+import Result from '../components/result'
 import Mine from '../components/mine'
 import Brand from '../components/brand'
 
@@ -66,6 +68,16 @@ export default new Router({
       path: '/item/:ylyid',
       component: Detail
     },
+    {
+       path: '/search/view',
+       component: View,
+    },
+	
+    {
+       path: '/search/result/:word',
+       component: Result,
+    },
+     
     {
 	    path:'*',
 	    redirect:'/index'

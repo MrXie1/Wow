@@ -15,19 +15,27 @@
              
         </div>
         <!-- 内容部分 -->
-        <section v-for="data in datalist">
+        <!-- <section v-for="data in datalist"> -->
+              <!-- v-infinite-scroll="loadMore"
+              infinite-scroll-disabled="loading"
+              infinite-scroll-immediate-check="false"
+              infinite-scroll-distance="0" -->
+        <section v-for="data in datalist" > 
+
             <div class="content" >
               
                  <h2>{{data.moduleName}}</h2>
                  <p>{{data.moduleDescription}}</p> 
-                 <div v-if="data.moduleContent.banners">
+                 <!-- 是否有小图片三张广告 -->
+                 <div v-if="data.moduleContent.banners" @click="clickBanner(data.moduleContent.banners[0].bannerLinkTargetId)">
                     <img v-if="data.moduleContent.banners[0]"  :src="data.moduleContent.banners[0].bannerImgSrc" alt="">
                 </div>
-                <!-- 是否有小图片三张广告 -->
+                <!-- 是否有小图片产品图片 -->
                 <div v-if="data.moduleContent.products" class="product">
                     <ul class="three">
                         <li v-for="pros in data.moduleContent.products" v-if=" data.moduleContent.products.length<4">
-                          <img :src="pros.productImg" alt="">
+                          <img :src="pros.productImg" alt="" @click="handelClick(pros.productId)">
+                          <!-- <router-link to='/more' tag="img" :src="pros.productImg" ></router-link> -->
                           <p>{{pros.productName}}</p>
                           <p>￥{{pros.sellPrice}}</p>
                         </li>
@@ -37,23 +45,22 @@
                         <div class=" module2 swiper-container" v-if=" data.moduleContent.products.length>4" >
                              <div class="swiper-wrapper">
                                   <div class="swiper-slide" v-for="pros in data.moduleContent.products" :key="data.id">
-                                      <img :src="pros.productImg" alt="">
+                                      <img :src="pros.productImg" alt="" @click="handelClick(pros.productId)">
                                       <p>{{pros.productName}}</p>
                                       <p class="price">￥{{pros.sellPrice}}</p>
                                  </div>
                              </div>
-                             <router-link to="/more" class="more">
-                              <div @click="footerhide()">
+                            <div @click="changeAll(data.moduleContent.id)" class="more">
                                 查看全部
-                              </div>
-                             </router-link>
+                            </div>
+
                         </div>
                 </div>
                 
             </div>
             
         </section>
-        <p >{{msg}}</p>
+        <!-- <p >{{msg}}</p> -->
    </div>
 </template>
   
@@ -80,16 +87,20 @@
         src:[],
         hide:false,
         backTopShow:false,
-        loading:false,
-        msg:"正在加载中.....",
-        last:[],
-        num:10
+        groupId:''
+        // loading:false,
+        // msg:"正在加载中.....",
+        // last:[],
+        // num:10
       }
     },
 
     methods:{
-      footerhide(){
-        this.$store.commit("footerbarhide",this.hide)
+      handelClick(productId){
+        this.$router.push('/item/'+ productId); 
+      },
+      changeAll(data){
+        this.$router.push('/productGroup/' + data);
       },
       backTop() {
         let back = setInterval(() => {
@@ -108,8 +119,21 @@
           else {
             this.backTopShow=false;
           }
+        },
+        clickBanner(brandid){
+          this.$router.push('/brand/' + brandid)
         }
     },
+    // 无限滚动
+    // loadMore(){
+    //   console.log(aaaaa)
+    //      for(var i=0; i<11;i++){
+    //          num++;
+    //          this.last.push(this.datalist[this.num])
+    //      }
+
+         
+    //     },
     mounted(){
       // 回到顶部
       window.addEventListener('scroll', this.handleScroll)
@@ -182,7 +206,6 @@
   }
     .module2 .more{
       color:black;
-      text-align: center;
       margin-left: 1.5rem;
       font-size: 0.14rem
     }
