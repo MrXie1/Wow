@@ -9,11 +9,11 @@
 </template>
   
 <script>
+import bus from '../bus'
 export default {
   name: 'message',
   data () {
     return {
-      hide:true
     }
   },
 
@@ -21,8 +21,12 @@ export default {
     
   },
 
+  beforeCreate(){
+    bus.$emit("footerbarhide",false);
+  },
+
   beforeDestroy(){
-    this.$store.commit("footerbarhide",this.hide)
+    bus.$emit("footerbarhide",true);
   }
 }
 </script>

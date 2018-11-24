@@ -13,11 +13,11 @@
     <div class="order">
       <div class="title">全部订单</div>
       <ul>
-        <li><a href="#">待付款</a></li>
-        <li><a href="#">待发货</a></li>
-        <li><a href="#">待收货</a></li>
-        <li><a href="#">待评论</a></li>
-        <li><a href="#">退换货</a></li>
+        <li><a href="javascript:;">待付款</a></li>
+        <li><a href="javascript:;">待发货</a></li>
+        <li><a href="javascript:;">待收货</a></li>
+        <li><a href="javascript:;">待评论</a></li>
+        <li><a href="javascript:;">退换货</a></li>
       </ul>
     </div>
     <div class="logout"><a href="/logout">退出登录</a></div>

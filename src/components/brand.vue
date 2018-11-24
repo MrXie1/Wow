@@ -17,7 +17,7 @@
        infinite-scroll-disabled="loading"
        infinite-scroll-immediate-check ="false"
        infinite-scroll-distance="0">
-        <li v-for="data in datalist" class="border">
+        <li v-for="data in datalist" class="border" @click = "handleClick(data.productId)">
           <img :src="data.productImg" alt="">
           <div class="desc">
             <p class="title">{{ data.productTitle }}...</p>
@@ -48,8 +48,10 @@ export default {
   },
 
   methods:{
+    handleClick(productId){
+      this.$router.push('/item/' + productId)
+    },
     loadMore(){
-      console.log('111')
       this.current++;
       if(this.current > 3){
         this.loading = true;
@@ -69,8 +71,12 @@ export default {
       return res.json()
     }).then(res=>{
       this.datalist = res.data;
-      bus.$emit("footerbarhide",this.hide)
+      bus.$emit("footerbarhide",false)
     })
+  },
+
+  beforeDestroy(){
+    bus.$emit("footerbarhide",true);
   }
 }
 </script>

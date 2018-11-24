@@ -38,13 +38,13 @@
 <script>
 import { Checklist } from 'mint-ui';
 import axios from 'axios'
+import bus from '../bus'
 
 export default {
   name: 'cart',
   data () {
     return {
       // num1: 1,
-      hide:true,
       checkgroup:[],
       isAllChecked:false,
       datalist:[
@@ -69,14 +69,12 @@ export default {
   },
 
   mounted(){
-    // axios.get(`/cart/list?_=${new Date().getTime()}`).then(res=>{
-    //   this.datalist = res.data.data;
-    //   console.log(res);
-    // })
+    
   },
 
   methods:{
     handleChecked(){
+      console.log(this.checkgroup.length)
       if(this.isAllChecked == true){
           this.checkgroup = this.datalist
       }else {
@@ -106,8 +104,12 @@ export default {
     }
   },
 
-  beforeDestroy(){
-    this.$store.commit("footerbarhide",this.hide)
+  beforeCreate(){
+    bus.$emit("footerbarhide",false);
+  },
+
+  destroyed(){
+    bus.$emit("footerbarhide",true);
   }
 }
 </script>
@@ -197,7 +199,7 @@ export default {
     width: 100%;
     height: .5rem;
     background: white;
-    z-index: 15;
+    z-index: 1;
     position: absolute;
     bottom: 0;
     left: 0;

@@ -1,6 +1,5 @@
 <template>
   <footer>
-    <!-- <ul v-show="$store.state.hide"> -->
     <ul v-show="hide">
       <router-link to="/index" tag="li" activeClass="active">
         <i class="iconfont icon-shouye"></i>
@@ -11,16 +10,12 @@
         <p>分类</p>
       </router-link>
       <router-link to="/cart" tag="li" activeClass="active">
-        <div class="mask" @click="handle()">
-          <i class="iconfont icon-qicheqianlian-1-copy" ></i>
-          <p>购物车</p>
-        </div>
+        <i class="iconfont icon-qicheqianlian-1-copy" ></i>
+        <p>购物车</p>
       </router-link>
       <router-link to="/message" tag="li" activeClass="active" >
-        <div class="mask" @click="handle()">
-          <i class="iconfont icon-xiaoxi"></i>
-          <p>消息</p>
-        </div>
+        <i class="iconfont icon-xiaoxi"></i>
+        <p>消息</p>
       </router-link>
       <router-link to="/user" tag="li" activeClass="active">
         <i class="iconfont icon-wo"></i>
@@ -41,9 +36,7 @@ export default {
   },
 
   methods:{
-    // handle(){
-    //   this.$store.commit('footerbarhide',this.hide)
-    // }
+    
   },
 
   mounted(){
