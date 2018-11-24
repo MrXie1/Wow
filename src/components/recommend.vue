@@ -15,21 +15,27 @@
              
         </div>
         <!-- 内容部分 -->
+        <!-- <section v-for="data in datalist"> -->
+              <!-- v-infinite-scroll="loadMore"
+              infinite-scroll-disabled="loading"
+              infinite-scroll-immediate-check="false"
+              infinite-scroll-distance="0" -->
+        <section v-for="data in datalist" > 
 
-        <section v-for="data in datalist" >
-  
             <div class="content" >
               
                  <h2>{{data.moduleName}}</h2>
                  <p>{{data.moduleDescription}}</p> 
-                 <div v-if="data.moduleContent.banners">
+                 <!-- 是否有小图片三张广告 -->
+                 <div v-if="data.moduleContent.banners" @click="clickBanner(data.moduleContent.banners[0].bannerLinkTargetId)">
                     <img v-if="data.moduleContent.banners[0]"  :src="data.moduleContent.banners[0].bannerImgSrc" alt="">
                 </div>
-                <!-- 是否有小图片三张广告 -->
+                <!-- 是否有小图片产品图片 -->
                 <div v-if="data.moduleContent.products" class="product">
                     <ul class="three">
-                        <li v-for="pros in data.moduleContent.products" v-if=" data.moduleContent.products.length<4" @click="handelClick(pros.productId)">
-                          <img :src="pros.productImg" alt="">
+                        <li v-for="pros in data.moduleContent.products" v-if=" data.moduleContent.products.length<4">
+                          <img :src="pros.productImg" alt="" @click="handelClick(pros.productId)">
+                          <!-- <router-link to='/more' tag="img" :src="pros.productImg" ></router-link> -->
                           <p>{{pros.productName}}</p>
                           <p>￥{{pros.sellPrice}}</p>
                         </li>
@@ -44,16 +50,16 @@
                                       <p class="price">￥{{pros.sellPrice}}</p>
                                  </div>
                              </div>
-                              <div @click="changeAll(data.moduleContent.id)" class="more">
+                            <div @click="changeAll(data.moduleContent.id)" class="more">
                                 查看全部
-                              </div>
+                            </div>
                         </div>
                 </div>
                 
             </div>
             
         </section>
-        <p >{{msg}}</p>
+        <!-- <p >{{msg}}</p> -->
    </div>
 </template>
   
@@ -78,21 +84,28 @@
       return {
         datalist:[],
         src:[],
+        hide:false,
         backTopShow:false,
-        loading:false,
+        // loading:false,
         msg:"正在加载中.....",
         last:[],
         num:10,
         indexList:[],
         //yly改过-------------
         groupId: ''
+        // loading:false,
+        // msg:"正在加载中.....",
+        // last:[],
+        // num:10
       }
     },
 
     methods:{
       handelClick(productId){
-        this.$router.push('/item/'+ productId);
-        
+        this.$router.push('/item/'+ productId); 
+      },
+      changeAll(data){
+        this.$router.push('/productGroup/' + data);
       },
       changeAll(data){
         this.$router.push('/productGroup/' + data);
@@ -107,17 +120,29 @@
           }
         },100)
       },
-      handleScroll(){
-        if (document.documentElement.scrollTop + document.body.scrollTop > 100) {
-          this.backTopShow=true;
+        handleScroll(){
+          if (document.documentElement.scrollTop + document.body.scrollTop > 100) {
+            this.backTopShow=true;
+          }
+          else {
+            this.backTopShow=false;
+          }
+        },
+        clickBanner(brandid){
+          this.$router.push('/brand/' + brandid)
         }
-        else {
-          this.backTopShow=false;
-        }
-      }
     },
     // 无限滚动
   // https://m.wowdsgn.com/v2/page?pageId=1&tabId=1&_=1543045969985 
+    // loadMore(){
+    //   console.log(aaaaa)
+    //      for(var i=0; i<11;i++){
+    //          num++;
+    //          this.last.push(this.datalist[this.num])
+    //      }
+
+         
+    //     },
     mounted(){
       // 回到顶部
       window.addEventListener('scroll', this.handleScroll)
@@ -130,11 +155,10 @@
         axios.get("/v2/page?pageId=1&tabId=1&_=1542783616113").then(res=>{
         this.datalist=res.data.data.modules.slice(1)
         this.last=this.datalist.slice(0,10)
+        // console.log(res.data.data.modules.slice(1))
         this.src=res.data.data.modules[0].moduleContent.banners
-        this.indexList =res.data.data.modules.slice(1)[2].moduleContent.products
-
-        this.$store.commit("getProductInfo",this.indexList);
-        this.$store.commit("getParentproductId",this.indexList);
+         // console.log(res.data.data.modules.slice(1)[2].moduleContent.products) 
+        
          // 在请求完轮播图片之后引入轮播代码【swiper初始化】
          this.$nextTick(()=>{
              new Swiper ('.module1', {
@@ -191,7 +215,6 @@
   }
     .module2 .more{
       color:black;
-      text-align: center;
       margin-left: 1.5rem;
       font-size: 0.14rem
     }
