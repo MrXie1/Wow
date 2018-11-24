@@ -9,19 +9,19 @@
         <router-link to="/register">注册</router-link>
       </div>
     </nav>
-    <div class="login">
+    <form class="login" action="/login" method="post">
       <el-tabs :tab-position="tabPosition" class="out">
           <el-tab-pane label="密码登录" class="border">
-            <el-input placeholder="请输入手机号" class="input"></el-input>
-            <el-input placeholder="请输入密码" class="input"></el-input>
+            <el-input placeholder="请输入手机号" class="input" name="username"></el-input>
+            <el-input placeholder="请输入密码" class="input" name="password"></el-input>
           </el-tab-pane>
           <el-tab-pane label="短信登录" class="border">
             <el-input placeholder="请输入手机号" class="input"></el-input>
             <el-input placeholder="请输入验证码" class="input"></el-input>
           </el-tab-pane>
       </el-tabs>
-      <input type="button" id="loginBtn" name="submit" value="确认">
-    </div>
+      <input type="submit" id="loginBtn" name="submit" value="确认">
+    </form>
   </div>
 </template>
    
@@ -42,6 +42,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+  .body{
+    background: #F5F5F5;  
+    height: 100%;
+  }
   .iconfont{
     font-size: .20rem;
   }
@@ -74,6 +78,9 @@ export default {
     height: 1.5rem;
     .out{
       margin-bottom: .1rem;
+    }
+    .input{
+      outline: none;
     }
     input[name="submit"]{
       height: .44rem;

@@ -1,14 +1,17 @@
 <template>
-  <div >
+  <div class="body">
     <nav>
       <h3>注册</h3>
       <div class="r ">
         <router-link to="/login">登录</router-link>
       </div>
     </nav>
-    <form class="register">
+    <form class="register" action="/register" method="post">
       <div class="tr top">
-        <input placeholder="请输入手机号" v-model="tele"></input>
+        <input placeholder="请输入手机号" v-model="tele" name="username"></input>
+      </div>
+      <div class="tr">
+        <input type="password" placeholder="请输入密码" name="password">
       </div>
       <div class="tr">
         <input type="text" name="captcha" placeholder="请输入图形验证码" id="captcha" class="l">
@@ -54,6 +57,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+  .body{
+    background: #F5F5F5;
+    height: 100%;
+  }
   nav{
     position: relative;
     height: .45rem;
@@ -91,10 +98,11 @@ export default {
   .register{
     margin: .15rem;
     background: white;
-    height: 1rem;
+    height: 1.5rem;
 
   .tr{
     padding: 0 .15rem;
+    background: white;
     input{
       height: .5rem; 
       outline: none;
@@ -104,9 +112,6 @@ export default {
     a{
       line-height: .4rem;
     }
-  }
-  .top{
-    border-bottom: 2px solid #ccc;
   }
   
   img{

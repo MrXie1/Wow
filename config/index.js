@@ -16,11 +16,6 @@ module.exports = {
             host:"m.wowdsgn.com",
             changeOrigin:true      //切换原
         },
-        "/cart":{
-            target:"https://m.wowdsgn.com",
-            host:"m.wowdsgn.com",
-            changeOrigin:true  
-        },
         "/pages":{
             target:"https://m.wowdsgn.com",
             host:"m.wowdsgn.com",

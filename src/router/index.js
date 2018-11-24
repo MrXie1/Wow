@@ -11,6 +11,8 @@ import Message from '../components/message'
 import Login from '../components/login'
 import Register from '../components/register'
 import More from '../components/more'
+import Mine from '../components/mine'
+import Brand from '../components/brand'
 
 Vue.use(Router)
 
@@ -37,12 +39,20 @@ export default new Router({
       component: User
     },
     {
+      path: '/mine',
+      component: Mine
+    },
+    {
       path: '/message',
       component: Message
     },
     {
       path: '/more',
       component: More
+    },
+    {
+      path: '/brand/:brandid',
+      component: Brand
     },
     {
       path: '/login',
@@ -56,7 +66,6 @@ export default new Router({
       path: '/item/:ylyid',
       component: Detail
     },
-
     {
 	    path:'*',
 	    redirect:'/index'

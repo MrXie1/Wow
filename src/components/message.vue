@@ -1,7 +1,7 @@
 <template>
   <div >
     <nav>
-      <a href='/index' @click="appear()">
+      <a href='/index'>
         <i class="iconfont icon-shouye"></i>
       </a>
     </nav>
@@ -13,13 +13,16 @@ export default {
   name: 'message',
   data () {
     return {
+      hide:true
     }
   },
 
   methods:{
-    appear(){
-      this.$emit('event');
-    }
+    
+  },
+
+  beforeDestroy(){
+    this.$store.commit("footerbarhide",this.hide)
   }
 }
 </script>

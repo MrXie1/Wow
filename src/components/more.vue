@@ -34,7 +34,6 @@ export default {
       array:[],
       loading: false,
       current:1,//页数
-      total:0,
       hide:true,
       msg:'正在加载中....'
     }
@@ -71,7 +70,6 @@ export default {
     });
       axios.get(`/pages/productGroup/11788/products?pageNumber=1&_=${new Date().getTime()}`).then(res=>{
         this.datalist = res.data.data.products;
-        this.total = res.data.data.totalResult;
         this.$store.commit("getParentproductId",this.datalist)
         Indicator.close();
       })

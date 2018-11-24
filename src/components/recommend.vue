@@ -5,23 +5,17 @@
       </div>
     <!-- 引入轮播图 -->
         <div class="module1 swiper-container">
-             <div class="swiper-wrapper">
-                  <div class="swiper-slide" v-for="data,index in src" :key="data.id">
-                      <img :src="data.bannerImgSrc" alt="">
-                 </div>
-             </div>
-             <!-- 如果需要分页器 -->
-             <div class="swiper-pagination"></div>
+           <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="data,index in src" :key="data.id">
+                    <img :src="data.bannerImgSrc" alt="">
+               </div>
+           </div>
+           <!-- 如果需要分页器 -->
+           <div class="swiper-pagination"></div>
              
         </div>
         <!-- 内容部分 -->
-        <section v-for="data in datalist" 
-              v-infinite-scroll="loadMore"
-              infinite-scroll-disabled="loading"
-              infinite-scroll-distance="0"
-              infinite-scroll-immediate-check='false'>
-              
-          
+        <section v-for="data in datalist">
             <div class="content" >
               
                  <h2>{{data.moduleName}}</h2>
@@ -48,12 +42,11 @@
                                       <p class="price">￥{{pros.sellPrice}}</p>
                                  </div>
                              </div>
-                             <router-link to="/more">
+                             <router-link to="/more" class="more">
                               <div @click="footerhide()">
                                 查看全部
                               </div>
                              </router-link>
-                             <router-link to='/more' class="more">查看全部</router-link>
                         </div>
                 </div>
                 
@@ -116,14 +109,6 @@
             this.backTopShow=false;
           }
         }
-    },
-    // 无限滚动
-    loadMore(){
-      console.log(aaaaa)
-         for(var i=0; i<11;i++){
-             num++;
-             this.last.push(this.datalist[this.num])
-         }
     },
     mounted(){
       // 回到顶部

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view v-if="isRouterAlive"></router-view>
-    <footbar v-show="isShow" @event="isShow=!isShow"></footbar>
+    <footbar v-show="isShow"></footbar>
   </div>
 </template>
 

@@ -1,6 +1,7 @@
 <template>
   <footer>
-    <ul v-show="$store.state.hide">
+    <!-- <ul v-show="$store.state.hide"> -->
+    <ul v-show="hide">
       <router-link to="/index" tag="li" activeClass="active">
         <i class="iconfont icon-shouye"></i>
         <p>首页</p>
@@ -30,20 +31,25 @@
 </template>
   
 <script>
+import bus from "../bus";
 export default {
   name: 'footbar',
   data () {
     return {
-      
+      hide:true
     }
   },
 
   methods:{
-    handle(){
-      this.$emit('event');
+    // handle(){
+    //   this.$store.commit('footerbarhide',this.hide)
+    // }
+  },
 
-
-    }
+  mounted(){
+    bus.$on("footerbarhide",res=>{
+      this.hide = res;
+    })
   }
 }
 </script>
