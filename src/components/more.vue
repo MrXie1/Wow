@@ -25,6 +25,7 @@ import vuex from "vuex"
 import axios from "axios"
 import { Indicator } from 'mint-ui';
 import { InfiniteScroll } from 'mint-ui';
+import bus from "../bus.js"
 export default {
   name: 'category',
   data () {
@@ -51,24 +52,25 @@ export default {
         this.msg = '没有更多了';
         return;
       }
-      axios.get(`/pages/productGroup/11788/products?pageNumber=${this.current}&_=${new Date().getTime()}`).then(res=>{
+      axios.get(`/pages/productGroup/10013/products?pageNumber=${this.current}&_=${new Date().getTime()}`).then(res=>{
         this.datalist = [...this.datalist,...res.data.data.products]
         this.$store.commit("getParentproductId",this.datalist)
         
       })
-     
-
     }
   },
-  beforeDestroy(){
-    this.$store.commit("footerbarhide",this.hide)
+  beforeCreate(){
+    bus.$emit("footerbarhide",false);
+  },
+  beforeDestory(){
+    bus.$emit("footerbarhide",true);
   },
   mounted(){
       Indicator.open({
       text: '加载中....',
       spinnerType: 'fading-circle'
     });
-      axios.get(`/pages/productGroup/11788/products?pageNumber=1&_=${new Date().getTime()}`).then(res=>{
+      axios.get(`/pages/productGroup/10013/products?pageNumber=1&_=${new Date().getTime()}`).then(res=>{
         this.datalist = res.data.data.products;
         this.$store.commit("getParentproductId",this.datalist)
         Indicator.close();

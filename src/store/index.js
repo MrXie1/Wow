@@ -15,22 +15,39 @@ const store = new Vuex.Store({
 		groupId:'',
 		//爽
 		src:[],
+
 		list1:[],
 		list2:[],
 		list3:[],
-		historylist:[]
+		historylist:[],
+		hide:true,
+		indexList:[]
+
 
 
 	},
 	mutations:{
 		changeParentproductId(state,payload){
 			state.parentProductId = payload;
+
+
+
+		},
+		getFinuturelist(state,payload){
+		   state.list=payload;
+		},
+		getFinuturesrc(state,payload){
+			state.src=payload;
+			  
+
 		},
 		getParentproductId(state,payload){
+			console.log(payload);
 			state.datalist = payload;
 			
 		},
 		getProductInfo(state,payload){
+
 			state.indexList = payload;
 		},
 		getGroupId(state,payload){
@@ -49,6 +66,10 @@ const store = new Vuex.Store({
 		gethistorylist(state,payload){
 			 state.historylist=payload;
 			 console.log(state.historylist)
+
+			console.log(payload);
+			state.indexList = payload;
+
 		}
 
 	},

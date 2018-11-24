@@ -31,9 +31,15 @@ module.exports = {
             host:"m.wowdsgn.com",
             changeOrigin:true
         },
+<<<<<<< HEAD
         "/product":{
             target:"https://m.wowdsgn.com",
             host:"m.wowdsgn.com",
+=======
+        "/register":{
+            target:"http://localhost:3000",
+            host:"localhost:3000",
+>>>>>>> 06be873a210107b9195d5252692b8c20e3561634
             changeOrigin:true
         }
 

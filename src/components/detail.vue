@@ -7,35 +7,15 @@
         <h3>商品详情</h3>
         <div class="r"><a><i class="iconfont icon-sousuo"></i></a></div>
       </div>
-      <swipe class="my-swipe">
-        <swipe-item class="slide1">
-          <img src="https://img.wowdsgn.com/product/addtionalImage//2a447b6b-c28d-4877-9c77-f74354c5ea68_2dimension_750x600.jpg?imageView2/1/w/375/h/300" alt="">
-        </swipe-item>
-        <swipe-item class="slide2">
-          <img src="https://img.wowdsgn.com/product/addtionalImage//ac7623cc-3779-4159-ad17-0972c035f4a1_2dimension_750x600.jpg?imageView2/1/w/375/h/300" alt="">
-        </swipe-item>
-        <swipe-item class="slide3">
-          <img src="https://img.wowdsgn.com/product/images/df14765a-757f-481a-b904-d7fd5b0a9a5b.jpg?imageView2/1/w/375/h/300" alt="">
-        </swipe-item>
-        <swipe-item class="slide4">
-          <img src="https://img.wowdsgn.com/product/addtionalImage//83ada771-4900-4825-aee1-cf7642a68ccc_2dimension_750x600.jpg?imageView2/1/w/375/h/300" alt="">
-        </swipe-item>
-        <swipe-item class="slide4">
-          <img src="https://img.wowdsgn.com/product/addtionalImage//4f18022f-9448-41b3-8775-b8ac3f85e4aa_2dimension_750x600.jpg?imageView2/1/w/375/h/300" alt="">
-        </swipe-item>
-        <swipe-item class="slide4">
-          <img src="https://img.wowdsgn.com/product/addtionalImage//5d8ae741-7167-4a4f-ba2e-f6128adffa50_2dimension_750x600.jpg?imageView2/1/w/375/h/300" alt="">
-        </swipe-item>
-        <swipe-item>
-          <img src="https://img.wowdsgn.com/product/images/df14765a-757f-481a-b904-d7fd5b0a9a5b.jpg?imageView2/1/w/375/h/300" alt="">
-        </swipe-item>
-      </swipe>
+      <div class="headerImg">
+        <img :src="shuzu2.productImg">
+      </div>
       <div class="productInfo">  
         <p class="productName">{{shuzu2.productName}}</p>
-        <p v-for = "data in shuzu2" class="price" :key="data.productId">{{data.sellPrice}}</p>
-        <span class="original" v-for = "data in shuzu2" :key="data.productId">{{data.originalPrice}}</span> 
+        <p class="price" :key="shuzu2.parentProductId">￥：{{shuzu2.sellPrice}}</p>
+        <span class="original" :key="shuzu2.productId">￥：{{shuzu2.originalPrice}}</span> 
         <div>
-          <div v-for = "data in list" class="title">{{data.title}}</div>
+          <div v-for = "data in list" class="title">{{shuzu2.title}}</div>
         </div>
       </div>
       <ul class="detailImg">
@@ -115,7 +95,7 @@
       </div>
       <div class="youlike">
         <ul>
-          <li v-for ="data in list" @click = "handle(data.productId,data.parentProductId)">
+          <li v-for ="data in list" @click = "handle(data.productId)">
             <img :src="data.productImg" alt="">
             <div class="p">
               <p class="title">{{data.productTitle}}</p>
@@ -153,8 +133,10 @@ export default {
     return {
       array:[],
       list:[],
+      listarr:[],
       arr:[],
       img1:'',
+      loading:false,
       img2:'',
       icon1:'',
       icon2:'',
@@ -163,11 +145,13 @@ export default {
       param:[],
       isServer:true,
       isP:false,
-      shuzu2:[],
+      shuzu2:'',
       isIcon: false,
-      hide:true,
       likelist:[],
-      detailList:[]
+      detailList:[],
+      current:1,
+      hide:false,
+      indexList:[]
     }
   },
   inject:['reload'],
@@ -177,20 +161,12 @@ export default {
       this.$router.push('/item/' + productId);
       this.reload();
     },
-    changeimg1(){
-      this.isShow = true;
-      this.noShow = false;
-    },
-    changeimg2(){
-      this.noShow = true;
-      this.isShow = false
-    },
     change1(){
       this.isServer = !this.isServer
     },
     change2(){
       this.isP = !this.isP
-    }
+    },
   },
   components:{
     Swipe,
@@ -200,41 +176,64 @@ export default {
     fetch(`/recommend/item?skuId=${this.$route.params.ylyid}&_=${new Date().getTime()}`).then(res=>{
       return res.json()
     }).then(res=>{
-      this.list = res.data.skuInLists 
+      this.list = res.data.skuInLists;
+      for(var i=0;i<this.list.length;i++){
+        if(this.list[i].productId == this.$route.params.ylyid){
+          console.log(this.list[i].parentProductId);
+           this.listarr = this.list[i]
+        }
+      }
       this.$store.commit('getParentproductId',this.list) 
     });
-    fetch(`/pages/productGroup/11788/products?pageNumber=1&_=${new Date().getTime()}`).then(res=>{
+    //查看全部page=1的数据
+    fetch(`/pages/productGroup/10013/products?pageNumber=1&_=${new Date().getTime()}`).then(res=>{
       return res.json()
     }).then(res=>{
-      console.log(res);
-      // this.detailList = res
-    })
-// http://localhost:8080/pages/productGroup/11788/products?pageNumber=1&_=1542954496866
+      this.detailList = res.data.products;
+      console.log(this.detailList)
+      for(var i=0;i<this.detailList.length;i++){
+        if(this.detailList[i].productId == this.$route.params.ylyid){
+          this.shuzu2 = this.detailList[i]
+        }
+      }  
+    });
+    //查看全部page=2的数据
+    fetch(`/pages/productGroup/10013/products?pageNumber=2&_=${new Date().getTime()}`).then(res=>{
+      return res.json()
+    }).then(res=>{
+      this.detailList = res.data.products;
+      console.log(this.detailList)
+      for(var i=0;i<this.detailList.length;i++){
+        if(this.detailList[i].productId == this.$route.params.ylyid){
+          this.shuzu2 = this.detailList[i]
+        }
+      }  
+    });
+    //从查看全部带来的数据大对象，渲染详情的页面
     for(var i=0;i<this.$store.state.datalist.length;i++){
       if(this.$store.state.datalist[i].productId == this.$route.params.ylyid){
-        console.log(this.$store.state.datalist[i].parentProductId)
         var j = this.$store.state.datalist[i].parentProductId
         fetch(`/itemdetail/spuInfos/${j}?_=${new Date().getTime()}`).then(res=>{
           return res.json()
         }).then(res=>{
-          console.log(res.data.itemDetailIntroVoList);
           this.arr = res.data.itemDetailIntroVoList
-
-          // this.arr =res.data.itemDetailIntroVoList
-          // this.img1 = res.data.itemSizeImgVoList[0].imgUrl;
-          // this.icon1 = res.data.itemSizeImgVoList[0].iconUrl;
-          // this.img2 = res.data.itemSizeImgVoList[1].imgUrl
-          // this.icon2 = res.data.itemSizeImgVoList[1].iconUrl
         });
       }
     }
-
+    //商品详情的规格参数
     fetch(`/itemdetail/skuInfos/${this.$route.params.ylyid}?_=${new Date().getTime()}`).then(res=>{
       return res.json()
     }).then(res=>{
       console.log(res);
       this.param = res.data.skuAttrPairs;
     })
+    //首页的商品详情顶部图片请求
+    this.indexList = this.$store.state.indexList;
+    for(var i=0;i<this.indexList.length;i++){
+      if(this.indexList[i].productId == this.$route.params.ylyid){
+        this.shuzu2 = this.indexList[i]
+      }
+    }
   }
 }
 </script>
@@ -259,13 +258,11 @@ export default {
     margin-left: -.25rem;
   }
 }
-  .my-swipe {
-   width: 3.75rem;
-   height: 3rem;
-    color: #fff;
-    font-size: .3rem;
-    text-align: center;
+.headerImg{
+  img{
+    width:100%;
   }
+}
   .productInfo{
     margin-left: .20rem;
     margin-top: .30rem;
@@ -442,14 +439,6 @@ export default {
     .bounce-leave-active {
       animation: bounce-in .5s reverse;
     }
-    @keyframes bounce-in {
-      0% {
-        transform: rotateX(30deg);
-      }
-      100% {
-        transform: rotateX(60deg);
-      }
-    }
     .youlike{
       box-sizing: border-box;
       overflow: hidden;
@@ -507,7 +496,7 @@ export default {
       width:100%;
       height:.5rem;
       background:white;
-      z-index: 22222;
+      z-index: 222224444444;
       position: fixed;
       bottom: 0;
       display:flex;
