@@ -10,17 +10,19 @@
       </div>
     </nav>
     <form class="login" action="/login" method="post">
-      <el-tabs :tab-position="tabPosition" class="out">
-          <el-tab-pane label="密码登录" class="border">
-            <el-input placeholder="请输入手机号" class="input" name="username"></el-input>
-            <el-input placeholder="请输入密码" class="input" name="password"></el-input>
-          </el-tab-pane>
-          <el-tab-pane label="短信登录" class="border">
-            <el-input placeholder="请输入手机号" class="input"></el-input>
-            <el-input placeholder="请输入验证码" class="input"></el-input>
-          </el-tab-pane>
-      </el-tabs>
-      <input type="submit" id="loginBtn" name="submit" value="确认">
+      <div class="login">  
+        <el-tabs :tab-position="tabPosition" class="out">
+            <el-tab-pane label="密码登录" class="border">
+              <el-input placeholder="请输入手机号" class="input" name="username" v-model="username"></el-input>
+              <el-input placeholder="请输入密码" class="input" name="password" v-model="password"></el-input>
+            </el-tab-pane>
+            <el-tab-pane label="短信登录" class="border">
+              <el-input placeholder="请输入手机号" class="input"></el-input>
+              <el-input placeholder="请输入验证码" class="input"></el-input>
+            </el-tab-pane>
+        </el-tabs>
+        <input type="submit" id="loginBtn" name="submit" value="确认">
+      </div>
     </form>
   </div>
 </template>
@@ -30,12 +32,13 @@ export default {
   name: 'login',
   data () {
     return {
-      tabPosition: 'top'
+      tabPosition: 'top',
+      username:'',
+      password:''
     }
   },
 
   methods:{
-
   }
 }
 </script>

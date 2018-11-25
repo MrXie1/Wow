@@ -53,10 +53,9 @@ export default {
         this.msg = '没有更多了';
         return;
       }
-      console.log(this.$route.params.groupId)
       axios.get(`/pages/productGroup/${this.$route.params.groupId}/products?pageNumber=${this.current}&_=${new Date().getTime()}`).then(res=>{
         this.datalist = [...this.datalist,...res.data.data.products]
-        this.$store.commit("getParentproductId",this.datalist)
+        // this.$store.commit("getParentproductId",this.datalist)
         
       })
     }
@@ -75,7 +74,7 @@ export default {
 
       axios.get(`/pages/productGroup/${this.$route.params.groupId}/products?pageNumber=1&_=${new Date().getTime()}`).then(res=>{
         this.datalist = res.data.data.products;
-        this.$store.commit("getParentproductId",this.datalist)
+        // this.$store.commit("getParentproductId",this.datalist)
         Indicator.close();
       })
        

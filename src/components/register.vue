@@ -6,20 +6,24 @@
         <router-link to="/login">登录</router-link>
       </div>
     </nav>
-    <form class="register" action="/register" method="post">
+    <!-- <form class="register" action="http://localhost:3000" method="post"> -->
+    <div class="register">
       <div class="tr top">
         <input placeholder="请输入手机号" v-model="tele" name="username"></input>
       </div>
       <div class="tr">
-        <input type="password" placeholder="请输入密码" name="password">
+        <input type="password" placeholder="请输入密码" name="password" v-model="password">
       </div>
       <div class="tr">
-        <input type="text" name="captcha" placeholder="请输入图形验证码" id="captcha" class="l">
+        <input type="text" name="captcha" placeholder="请输入图形验证码" id="captcha" class="l" @blur="confirm()">
         <img id="imgObj" alt="" src="https://m.wowdsgn.com/captcha/renew" class="l">
         <a href="#" id="renew" class="r">换一张</a>
       </div>
-    </form>
-      <button type="submit" class="confirm" @click="confirm()">注册</button>
+      <router-link to="/login">
+        <button type="submit" class="confirm"  @click="handleSubmit()">注册</button>
+      </router-link>
+    </div> 
+    <!-- </form> -->
     <p v-show="show1" class="error">请输入正确的手机号</p>
     <p v-show="show2" class="error">请输入手机号码</p>
   </div>
@@ -32,7 +36,8 @@ export default {
     return {
       show1: false,
       show2: false,
-      tele: ''
+      tele: '',
+      password:''
     }
   },
 
@@ -50,6 +55,17 @@ export default {
         this.show1 = true;
         this.show2 = false;
       }
+    },
+    handleSubmit(){
+      fetch("/",{
+        method:'post',
+        headers:{"Content-Type":"application/x-www-form-urlencoded"},
+        body:"username=" + this.tele + "&password=" + this.password
+      }).then(res=>res.json()).then(res=>{
+        console.log(res)
+      }).then(error=>{
+        console.log(error)
+      })
     }
   }
 }

@@ -35,7 +35,6 @@
                     <ul class="three">
                         <li v-for="pros in data.moduleContent.products" v-if=" data.moduleContent.products.length<4">
                           <img :src="pros.productImg" alt="" @click="handelClick(pros.productId)">
-                          <!-- <router-link to='/more' tag="img" :src="pros.productImg" ></router-link> -->
                           <p>{{pros.productName}}</p>
                           <p>￥{{pros.sellPrice}}</p>
                         </li>
@@ -157,7 +156,16 @@
         this.last=this.datalist.slice(0,10)
         // console.log(res.data.data.modules.slice(1))
         this.src=res.data.data.modules[0].moduleContent.banners
-         // console.log(res.data.data.modules.slice(1)[2].moduleContent.products) 
+         var content =  res.data.data.modules.slice(1);
+         var arrt=[]
+         for(var i=0;i<content.length;i++){
+          if(content[i].moduleContent.products){
+            arrt = arrt.concat(content[i].moduleContent.products)
+          }else{
+            continue;
+          }
+         }
+            this.$store.commit("getProductInfo",arrt)
         
          // 在请求完轮播图片之后引入轮播代码【swiper初始化】
          this.$nextTick(()=>{

@@ -42,26 +42,19 @@ const store = new Vuex.Store({
 	mutations:{
 		changeParentproductId(state,payload){
 			state.parentProductId = payload;
-
-
-
 		},
 		getFinuturelist(state,payload){
 		   state.list=payload;
 		},
 		getFinuturesrc(state,payload){
 			state.src=payload;
-			  
-
-
 		},
 		getParentproductId(state,payload){
 			console.log(payload);
 			state.datalist = payload;
-			
 		},
 		getProductInfo(state,payload){
-
+			console.log(payload)
 			state.indexList = payload;
 		},
 		getGroupId(state,payload){
@@ -80,9 +73,6 @@ const store = new Vuex.Store({
 		gethistorylist(state,payload){
 			 state.historylist=payload;
 			 console.log(state.historylist)
-
-			console.log(payload);
-			state.indexList = payload;
 
 		
 
@@ -125,7 +115,6 @@ const store = new Vuex.Store({
 		getSearchAction(store,payload){
 			axios.get(`/product/search?keyword=${encodeURI(payload)}&sort=onShelfTime&order=desc&currentPage=1&_=${new Date().getTime()}`).then(res=>{
 				store.commit("getSearchlist",res.data.data.products)
-				console.log(res.data.data.products)
 			})
 		},
 		getSaleAction(store,payload){
@@ -134,7 +123,7 @@ const store = new Vuex.Store({
 				console.log(res.data.data.products)
 			})
 		},
-	
+	// http://localhost:8080/product/search?keyword=%E6%9A%96%E6%89%8B%E5%AE%9D&sort=onShelfTime&order=desc&currentPage=1&_=1543133657327
 		getPriceAction(store,payload){
 			axios.get(`/product/search?keyword=${encodeURI(payload)}&sort=price&order=asc&currentPage=1&_=${new Date().getTime()}`).then(res=>{
 				store.commit("getPricelist",res.data.data.products)
