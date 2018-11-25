@@ -36,12 +36,7 @@ module.exports = {
             host:"m.wowdsgn.com",
             changeOrigin:true
         },
-        "/":{
-            target:"http://localhost:3000",
-            host:"localhost:3000",
-            changeOrigin:true
-        },
-        "/login":{
+        "/v4":{
             target:"http://localhost:3000",
             host:"localhost:3000",
             changeOrigin:true

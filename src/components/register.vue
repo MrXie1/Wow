@@ -6,7 +6,6 @@
         <router-link to="/login">登录</router-link>
       </div>
     </nav>
-    <!-- <form class="register" action="http://localhost:3000" method="post"> -->
     <div class="register">
       <div class="tr top">
         <input placeholder="请输入手机号" v-model="tele" name="username"></input>
@@ -19,11 +18,11 @@
         <img id="imgObj" alt="" src="https://m.wowdsgn.com/captcha/renew" class="l">
         <a href="#" id="renew" class="r">换一张</a>
       </div>
-      <router-link to="/login">
-        <button type="submit" class="confirm"  @click="handleSubmit()">注册</button>
-      </router-link>
-    </div> 
-    <!-- </form> -->
+      <!-- <router-link> -->
+      <button type="submit" class="confirm"  @click="handleSubmit()">注册</button>
+      <!-- </router-link> -->
+    </div>
+    <div v-show="isShow">该用户名已被注册</div>
     <p v-show="show1" class="error">请输入正确的手机号</p>
     <p v-show="show2" class="error">请输入手机号码</p>
   </div>
@@ -37,7 +36,8 @@ export default {
       show1: false,
       show2: false,
       tele: '',
-      password:''
+      password:'',
+      isShow:false
     }
   },
 
@@ -57,14 +57,21 @@ export default {
       }
     },
     handleSubmit(){
-      fetch("/",{
+      fetch("/v4/register",{
         method:'post',
         headers:{"Content-Type":"application/x-www-form-urlencoded"},
         body:"username=" + this.tele + "&password=" + this.password
-      }).then(res=>res.json()).then(res=>{
+      }).then(res=>{
+        return res.json()
+      }).then(res=>{
         console.log(res)
-      }).then(error=>{
-        console.log(error)
+        if(res == false){
+          this.isShow = true
+        }else{
+          this.isShow = false
+          console.log(this.$route)
+          this.$router.push('/login')
+        }
       })
     }
   }
