@@ -22,7 +22,11 @@
               infinite-scroll-distance="0" -->
         <section v-for="data in datalist" > 
 
-            <div class="content" >
+            <div class="content" 
+              v-infinite-scroll="loadMore"
+              infinite-scroll-disabled="loading"
+              infinite-scroll-immediate-check="false"
+              infinite-scroll-distance="0">
               
                  <h2>{{data.moduleName}}</h2>
                  <p>{{data.moduleDescription}}</p> 
@@ -85,17 +89,13 @@
         src:[],
         hide:false,
         backTopShow:false,
-        // loading:false,
+        loading:false,
         msg:"正在加载中.....",
         last:[],
-        num:10,
+        current:10,
         indexList:[],
         //yly改过-------------
         groupId: ''
-        // loading:false,
-        // msg:"正在加载中.....",
-        // last:[],
-        // num:10
       }
     },
 
@@ -129,19 +129,21 @@
         },
         clickBanner(brandid){
           this.$router.push('/brand/' + brandid)
-        }
-    },
+        },
     // 无限滚动
   // https://m.wowdsgn.com/v2/page?pageId=1&tabId=1&_=1543045969985 
-    // loadMore(){
-    //   console.log(aaaaa)
-    //      for(var i=0; i<11;i++){
-    //          num++;
-    //          this.last.push(this.datalist[this.num])
-    //      }
-
+    loadMore(){
+        if(this.last.length >= this.datalist.length){
+            return
+        }
+        console.log('aaaaa')
+         for(var i=0; i<11;i++){
+             this.current++;
+             this.last.push(this.datalist[this.current])
+         }
          
-    //     },
+        }
+    },
     mounted(){
       // 回到顶部
       window.addEventListener('scroll', this.handleScroll)

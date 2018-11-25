@@ -62,7 +62,7 @@ export default {
       handlehistory(data){
           this.$router.push('/search/result/'+data)
           var id = this.$route.params.word
-          console.log(id)
+          console.log(this.$route)
           this.historylist=this.$store.state.historylist
           this.historylist.unshift(data)
           // if($store.state.historylist.indexOf(historylist)===-1){
