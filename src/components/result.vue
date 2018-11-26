@@ -40,7 +40,7 @@ export default {
   name: 'result',
   data () {
     return {
-      text:'',
+      text:this.$route.params.word,
       who:'new1',
       navlist:['上新','销量','价格'],
       current:0
@@ -60,7 +60,11 @@ export default {
         var id = this.$route.params.word
         console.log(id)
           //异步请求， 并将结果存储到 store中
-        this.$store.dispatch("getSearchAction",id);
+         this.$store.dispatch("getSearchAction",id);
+         this.$store.dispatch("getSaleAction",id);
+         this.$store.dispatch("getPriceAction",id);
+         
+
       },
      
        handleFocus(index){

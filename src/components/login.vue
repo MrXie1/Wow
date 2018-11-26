@@ -9,19 +9,22 @@
         <router-link to="/register">注册</router-link>
       </div>
     </nav>
-    <form class="login" action="/login" method="post">
-      <el-tabs :tab-position="tabPosition" class="out">
-          <el-tab-pane label="密码登录" class="border">
-            <el-input placeholder="请输入手机号" class="input" name="username"></el-input>
-            <el-input placeholder="请输入密码" class="input" name="password"></el-input>
-          </el-tab-pane>
-          <el-tab-pane label="短信登录" class="border">
-            <el-input placeholder="请输入手机号" class="input"></el-input>
-            <el-input placeholder="请输入验证码" class="input"></el-input>
-          </el-tab-pane>
-      </el-tabs>
-      <input type="submit" id="loginBtn" name="submit" value="确认">
-    </form>
+    <!-- <form class="login" action="/login" method="post"> -->
+      <div class="login">  
+        <el-tabs :tab-position="tabPosition" class="out">
+            <el-tab-pane label="密码登录" class="border">
+              <el-input placeholder="请输入手机号" class="input" name="username" v-model="username"></el-input>
+              <el-input placeholder="请输入密码" class="input" name="password" v-model="password"></el-input>
+            </el-tab-pane>
+            <el-tab-pane label="短信登录" class="border">
+              <el-input placeholder="请输入手机号" class="input"></el-input>
+              <el-input placeholder="请输入验证码" class="input"></el-input>
+            </el-tab-pane>
+        </el-tabs>
+        <input type="submit" id="loginBtn" name="submit" value="确认" @click="handleLogin()">
+      </div>
+      <div v-show="isShow">该用户不存在</div>
+    <!-- </form> -->
   </div>
 </template>
    
@@ -30,12 +33,31 @@ export default {
   name: 'login',
   data () {
     return {
-      tabPosition: 'top'
+      tabPosition: 'top',
+      username:'',
+      password:'',
+      isShow:false
     }
   },
 
   methods:{
-
+    handleLogin(){
+      fetch("/v4/login",{
+        method:'post',
+        headers:{"Content-Type":"application/x-www-form-urlencoded"},
+        body:"username=" + this.username + "&password=" + this.password
+      }).then(res=>res.json()).then(res=>{
+        if(res == true){
+          
+          this.isShow = false
+          console.log(this.$route)
+          this.$router.push('/mine')
+        }else{
+          this.isShow = true
+          console.log(res)
+        }
+      })
+    }
   }
 }
 </script>

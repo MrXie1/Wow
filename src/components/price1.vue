@@ -1,6 +1,9 @@
 <template>
   <div class="main">
-    <ul class="new">
+    <ul class="new clear" v-infinite-scroll="loadMore"
+        infinite-scroll-disabled="loading"
+        infinite-scroll-immediate-check= "false"
+        infinite-scroll-distance="10">
         <li v-for="data in $store.state.list3" @click="handleClick(data.productId)">
           <img :src="data.productImg" alt="">
           <p>{{data.productTitle}}</p>
@@ -8,23 +11,45 @@
           <p>{{data.prizeOrSlogan}}</p>
         </li>  
     </ul>
+    <p class="loadmore">{{msg}}</p> 
   </div>
 </template>
   
 <script>
+ import vuex from "vuex" 
  import axios from "axios"
+ import { InfiniteScroll } from 'mint-ui';
  // import bus from "../bus"
 export default {
   name: 'price',
   data () {
     return {
+        loading:false,
+        current:1,
+        total:5,
+        msg:"小尖正在努力加载中......."
     }
   },
 
   methods:{
        handleClick(productId){
         this.$router.push('/item/'+productId)
-    }
+      },
+       loadMore() {
+            this.current++;
+            if(this.current>this.total){
+              this.loading=true;
+              this.msg="-----------------我是有底线的---------------";
+              return;
+            }
+            console.log(this.msg);
+           axios.get(`/product/search?keyword=${encodeURI(this.$route.params.word)}&sort=price&order=desc&currentPage=${this.current}&_=${new Date().getTime()}`).then(res=>{
+              console.log(res.data.data.products);
+              this.$store.state.list3=[...this.$store.state.list3,...res.data.data.products]
+            })
+            console.log('到底了');
+
+          }
   },
  mounted(){
      var id = this.$route.params.word
@@ -64,5 +89,14 @@ export default {
           font-size: 0.16rem;
         }
       }
+    }
+    .loadmore{
+      position: relative;
+      top:-0.8rem;
+      text-align: center;
+      background: lightyellow;
+      color:black;
+      font-size: 0.16rem;
+
     }
 </style>

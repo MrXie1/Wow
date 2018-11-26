@@ -1,13 +1,17 @@
 <template>
   <div class="main">
-    <ul class="new">
-        <li v-for="data in $store.state.list2" @click="handleClick(data.productId)">
+    <ul class="new clear" v-infinite-scroll="loadMore"
+        infinite-scroll-disabled="loading"
+        infinite-scroll-immediate-check= "false"
+        infinite-scroll-distance="10">
+        <li v-for="data in this.$store.state.list2" @click="handleClick(data.productId)">
           <img :src="data.productImg" alt="">
           <p>{{data.productTitle}}</p>
           <span>￥{{data.originalPrice}}</span>
           <p>{{data.prizeOrSlogan}}</p>
         </li>  
     </ul>
+    <p class="loadmore">{{msg}}</p>
   </div>
 </template>
   
@@ -18,13 +22,30 @@ export default {
   name: 'price',
   data () {
     return {
+       loading:false,
+        current:1,
+        total:5,
+        msg:"小尖正在加载中......."
     }
   },
-
   methods:{
      handleClick(productId){
         this.$router.push('/item/'+productId)
-    }
+    },
+    loadMore() {
+            this.current++;
+            if(this.current>this.total){
+              this.loading=true;
+              this.msg="我是有底线的";
+              return;
+            }
+            console.log(this.msg);
+           axios.get(`/product/search?keyword=${encodeURI(this.$route.params.word)}&sort=sales&order=desc&currentPage=${this.current}&_=${new Date().getTime()}`).then(res=>{
+              console.log(res.data.data.products);
+              this.$store.state.list2=[...this.$store.state.list2,...res.data.data.products]
+            })
+            console.log('到底了');
+      }
   },
  mounted(){
      var id = this.$route.params.word
@@ -32,12 +53,7 @@ export default {
       //异步请求， 并将结果存储到 store中
       this.$store.dispatch("getSaleAction",id);
   }
-   // beforeCreate(){
-   //    bus.$emit("footerbarhide",false)
-   //  },
-   //  beforeDestroy(){
-   //    bus.$emit("footerbarhide",true)
-   //  }
+   
 }
 </script>
 
@@ -64,5 +80,14 @@ export default {
           font-size: 0.16rem;
         }
       }
+    }
+    .loadmore{
+      position: relative;
+      top:-0.8rem;
+      text-align: center;
+      background: lightyellow;
+      color:black;
+      font-size: 0.16rem;
+
     }
 </style>

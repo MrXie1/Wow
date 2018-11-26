@@ -174,25 +174,28 @@ export default {
     SwipeItem
   },
   mounted(){
+    //猜你喜欢
     fetch(`/recommend/item?skuId=${this.$route.params.ylyid}&_=${new Date().getTime()}`).then(res=>{
       return res.json()
     }).then(res=>{
       this.list = res.data.skuInLists;
       for(var i=0;i<this.list.length;i++){
         if(this.list[i].productId == this.$route.params.ylyid){
-          console.log(this.list[i].parentProductId);
-           this.listarr = this.list[i]
+           console.log(this.list[i].parentProductId)
+           this.shuzu2 = this.list[i]
+           fetch(`/itemdetail/spuInfos/${this.list[i].parentProductId}?_=${new Date().getTime()}`).then(res=>{
+             return res.json()
+           }).then(res=>{
+             this.arr = res.data.itemDetailIntroVoList;
+           });  
         }
       }
-      this.$store.commit('getParentproductId',this.list) 
     });
-
     //查看全部page=1的数据
     fetch(`/pages/productGroup/${this.$store.state.groupId}/products?pageNumber=1&_=${new Date().getTime()}`).then(res=>{
       return res.json()
     }).then(res=>{
       this.detailList = res.data.products;
-      console.log(this.detailList)
       for(var i=0;i<this.detailList.length;i++){
         if(this.detailList[i].productId == this.$route.params.ylyid){
           console.log(this.detailList[i].productId)
@@ -201,22 +204,54 @@ export default {
       }  
     });
     //查看全部page=2的数据
-    console.log(this.$store.state.groupId)
     fetch(`/pages/productGroup/${this.$store.state.groupId}/products?pageNumber=2&_=${new Date().getTime()}`).then(res=>{
       return res.json()
     }).then(res=>{
       this.detailList = res.data.products;
-      console.log(this.detailList)
       for(var i=0;i<this.detailList.length;i++){
         if(this.detailList[i].productId == this.$route.params.ylyid){
           this.shuzu2 = this.detailList[i]
         }
-      }  
+      } 
     });
     //从查看全部带来的数据大对象，渲染详情的页面
-    for(var i=0;i<this.$store.state.datalist.length;i++){
-      if(this.$store.state.datalist[i].productId == this.$route.params.ylyid){
-        var j = this.$store.state.datalist[i].parentProductId
+    //首页
+    for(var i=0;i<this.$store.state.indexList.length;i++){
+      if(this.$store.state.indexList[i].productId == this.$route.params.ylyid){
+        var j = this.$store.state.indexList[i].parentProductId
+        fetch(`/itemdetail/spuInfos/${j}?_=${new Date().getTime()}`).then(res=>{
+          return res.json()
+        }).then(res=>{
+          this.arr = res.data.itemDetailIntroVoList
+        });
+      }
+    }
+    //上新
+    for(var i=0;i<this.$store.state.list1.length;i++){
+      if(this.$store.state.list1[i].productId == this.$route.params.ylyid){
+        var j = this.$store.state.list1[i].parentProductId
+        fetch(`/itemdetail/spuInfos/${j}?_=${new Date().getTime()}`).then(res=>{
+          return res.json()
+        }).then(res=>{
+          this.arr = res.data.itemDetailIntroVoList
+        });
+      }
+    }
+    //销量
+    for(var i=0;i<this.$store.state.list2.length;i++){
+      if(this.$store.state.list2[i].productId == this.$route.params.ylyid){
+        var j = this.$store.state.list2[i].parentProductId
+        fetch(`/itemdetail/spuInfos/${j}?_=${new Date().getTime()}`).then(res=>{
+          return res.json()
+        }).then(res=>{
+          this.arr = res.data.itemDetailIntroVoList
+        });
+      }
+    }
+    //价格
+    for(var i=0;i<this.$store.state.list3.length;i++){
+      if(this.$store.state.list3[i].productId == this.$route.params.ylyid){
+        var j = this.$store.state.list3[i].parentProductId
         fetch(`/itemdetail/spuInfos/${j}?_=${new Date().getTime()}`).then(res=>{
           return res.json()
         }).then(res=>{
@@ -231,11 +266,31 @@ export default {
       console.log(res);
       this.param = res.data.skuAttrPairs;
     })
+
     //首页的商品详情顶部图片请求
     this.indexList = this.$store.state.indexList;
     for(var i=0;i<this.indexList.length;i++){
       if(this.indexList[i].productId == this.$route.params.ylyid){
         this.shuzu2 = this.indexList[i]
+      }
+    }
+
+    for(var i=0;i<this.$store.state.list1.length;i++){
+      if(this.$store.state.list1[i].productId == this.$route.params.ylyid){
+        this.shuzu2 = this.$store.state.list1[i];
+        console.log(this.shuzu2)
+      }
+    }
+    for(var i=0;i<this.$store.state.list2.length;i++){
+      if(this.$store.state.list2[i].productId == this.$route.params.ylyid){
+        this.shuzu2 = this.$store.state.list1[i];
+        console.log(this.shuzu2)
+      }
+    }
+    for(var i=0;i<this.$store.state.list3.length;i++){
+      if(this.$store.state.list3[i].productId == this.$route.params.ylyid){
+        this.shuzu2 = this.$store.state.list1[i];
+        console.log(this.shuzu2)
       }
     }
   }
