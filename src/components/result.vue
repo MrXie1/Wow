@@ -53,12 +53,12 @@ export default {
         this.$router.push('/search/index')
       },
       handleInput(text){
-        console.log(encodeURI(this.text));
+        // console.log(encodeURI(this.text));
         var keyword = this.text;
         // this.$store.commit("shuang",keyword)
         this.$router.push('/search/result/'+keyword)
         var id = this.$route.params.word
-        console.log(id)
+        // console.log(id)
           //异步请求， 并将结果存储到 store中
          this.$store.dispatch("getSearchAction",id);
          this.$store.dispatch("getSaleAction",id);

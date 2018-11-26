@@ -136,7 +136,7 @@
         if(this.last.length >= this.datalist.length){
             return
         }
-        console.log('aaaaa')
+        // console.log('aaaaa')
          for(var i=0; i<11;i++){
              this.current++;
              this.last.push(this.datalist[this.current])

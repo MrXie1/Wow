@@ -94,7 +94,7 @@
         this.list=res.data.data.modules.slice(1)
         // console.log(res.data.data.modules.slice(1))
         this.src=res.data.data.modules[0].moduleContent.banners
-        console.log(res.data.data.modules.slice(1))
+        // console.log(res.data.data.modules.slice(1))
          // console.log(res.data.data.modules.slice(1)[2].moduleContent.products) 
         
          // 在请求完轮播图片之后引入轮播代码【swiper初始化】

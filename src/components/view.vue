@@ -50,7 +50,7 @@ export default {
         this.$router.push('/search/index')
       },
       handleInput(text){
-        console.log(encodeURI(this.text));
+        // console.log(encodeURI(this.text));
         var keyword = this.text;
         this.historylist=this.$store.state.historylist
         this.historylist.unshift(this.text)
@@ -62,7 +62,7 @@ export default {
       handlehistory(data){
           this.$router.push('/search/result/'+data)
           var id = this.$route.params.word
-          console.log(this.$route)
+          // console.log(this.$route)
           this.historylist=this.$store.state.historylist
           this.historylist.unshift(data)
           // if($store.state.historylist.indexOf(historylist)===-1){

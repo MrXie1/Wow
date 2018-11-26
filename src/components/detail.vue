@@ -158,7 +158,7 @@ export default {
   inject:['reload'],
   methods:{
     handle(productId){
-      console.log('click')
+      // console.log('click')
       this.$router.push('/item/' + productId);
       this.reload();
     },
@@ -181,7 +181,7 @@ export default {
       this.list = res.data.skuInLists;
       for(var i=0;i<this.list.length;i++){
         if(this.list[i].productId == this.$route.params.ylyid){
-           console.log(this.list[i].parentProductId)
+           // console.log(this.list[i].parentProductId)
            this.shuzu2 = this.list[i]
            fetch(`/itemdetail/spuInfos/${this.list[i].parentProductId}?_=${new Date().getTime()}`).then(res=>{
              return res.json()
@@ -198,7 +198,7 @@ export default {
       this.detailList = res.data.products;
       for(var i=0;i<this.detailList.length;i++){
         if(this.detailList[i].productId == this.$route.params.ylyid){
-          console.log(this.detailList[i].productId)
+          // console.log(this.detailList[i].productId)
           this.shuzu2 = this.detailList[i]
         }
       }  
@@ -263,7 +263,7 @@ export default {
     fetch(`/itemdetail/skuInfos/${this.$route.params.ylyid}?_=${new Date().getTime()}`).then(res=>{
       return res.json()
     }).then(res=>{
-      console.log(res);
+      // console.log(res);
       this.param = res.data.skuAttrPairs;
     })
 
@@ -278,19 +278,19 @@ export default {
     for(var i=0;i<this.$store.state.list1.length;i++){
       if(this.$store.state.list1[i].productId == this.$route.params.ylyid){
         this.shuzu2 = this.$store.state.list1[i];
-        console.log(this.shuzu2)
+        // console.log(this.shuzu2)
       }
     }
     for(var i=0;i<this.$store.state.list2.length;i++){
       if(this.$store.state.list2[i].productId == this.$route.params.ylyid){
         this.shuzu2 = this.$store.state.list1[i];
-        console.log(this.shuzu2)
+        // console.log(this.shuzu2)
       }
     }
     for(var i=0;i<this.$store.state.list3.length;i++){
       if(this.$store.state.list3[i].productId == this.$route.params.ylyid){
         this.shuzu2 = this.$store.state.list1[i];
-        console.log(this.shuzu2)
+        // console.log(this.shuzu2)
       }
     }
   }

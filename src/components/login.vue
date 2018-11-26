@@ -50,11 +50,11 @@ export default {
         if(res == true){
           
           this.isShow = false
-          console.log(this.$route)
+          // console.log(this.$route)
           this.$router.push('/mine')
         }else{
           this.isShow = true
-          console.log(res)
+          // console.log(res)
         }
       })
     }

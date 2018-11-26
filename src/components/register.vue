@@ -27,7 +27,7 @@
     <p v-show="show2" class="error">请输入手机号码</p>
   </div>
 </template>
-   
+
 <script>
 export default {
   name: 'register',
@@ -46,11 +46,11 @@ export default {
       var reg = /^1[34578]\d{9}$/;
       if(reg.test(this.tele)){
         this.show1 = false;
-        console.log('对劲儿')
+        // console.log('对劲儿')
       }else if(this.tele === ''){
         this.show2 = true;
         this.show1 = false;
-        console.log('空的')
+        // console.log('空的')
       }else {
         this.show1 = true;
         this.show2 = false;
@@ -64,12 +64,12 @@ export default {
       }).then(res=>{
         return res.json()
       }).then(res=>{
-        console.log(res)
+        // console.log(res)
         if(res == false){
           this.isShow = true
         }else{
           this.isShow = false
-          console.log(this.$route)
+          // console.log(this.$route)
           this.$router.push('/login')
         }
       })

@@ -39,17 +39,17 @@ export default {
               this.msg="我是有底线的";
               return;
             }
-            console.log(this.msg);
+            // console.log(this.msg);
            axios.get(`/product/search?keyword=${encodeURI(this.$route.params.word)}&sort=sales&order=desc&currentPage=${this.current}&_=${new Date().getTime()}`).then(res=>{
-              console.log(res.data.data.products);
+              // console.log(res.data.data.products);
               this.$store.state.list2=[...this.$store.state.list2,...res.data.data.products]
             })
-            console.log('到底了');
+            // console.log('到底了');
       }
   },
  mounted(){
      var id = this.$route.params.word
-     console.log(id)
+     // console.log(id)
       //异步请求， 并将结果存储到 store中
       this.$store.dispatch("getSaleAction",id);
   }

@@ -50,11 +50,11 @@ const store = new Vuex.Store({
 			state.src=payload;
 		},
 		getParentproductId(state,payload){
-			console.log(payload);
+			// console.log(payload);
 			state.datalist = payload;
 		},
 		getProductInfo(state,payload){
-			console.log(payload)
+			// console.log(payload)
 			state.indexList = payload;
 		},
 		getGroupId(state,payload){
@@ -72,7 +72,7 @@ const store = new Vuex.Store({
 		},
 		gethistorylist(state,payload){
 			 state.historylist=payload;
-			 console.log(state.historylist)
+			 // console.log(state.historylist)
 
 		
 
@@ -104,7 +104,7 @@ const store = new Vuex.Store({
 				store.commit("getFinuturelist",res.data.data.modules.slice(1))
 				store.commit("getFinuturesrc",res.data.data.modules[0].moduleContent.banners)
 				
-				console.log(res.data.data.modules.slice(1))
+				// console.log(res.data.data.modules.slice(1))
 			   
 
 			})
@@ -120,21 +120,21 @@ const store = new Vuex.Store({
 		getSaleAction(store,payload){
 			axios.get(`/product/search?keyword=${encodeURI(payload)}&sort=sales&order=desc&currentPage=1&_=${new Date().getTime()}`).then(res=>{
 				store.commit("getSalelist",res.data.data.products)
-				console.log(res.data.data.products)
+				// console.log(res.data.data.products)
 			})
 		},
 	// http://localhost:8080/product/search?keyword=%E6%9A%96%E6%89%8B%E5%AE%9D&sort=onShelfTime&order=desc&currentPage=1&_=1543133657327
 		getPriceAction(store,payload){
 			axios.get(`/product/search?keyword=${encodeURI(payload)}&sort=price&order=asc&currentPage=1&_=${new Date().getTime()}`).then(res=>{
 				store.commit("getPricelist",res.data.data.products)
-				console.log(res.data.data.products)
+				// console.log(res.data.data.products)
 				})
 			},
 
 		getHJAction(store,payload){
 			axios.get(`/pages/category/${payload.categoryId}?pageNumber=${payload.pageNumber}&orderBy=onShelfTime&sort=desc&_=${new Date().getTime()}`).then(res=>{
 				store.commit("changeHJPath",res.data.data.products)
-				console.log(res.data.data)
+				// console.log(res.data.data)
 			})
 		}
 

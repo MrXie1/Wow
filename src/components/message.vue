@@ -1,14 +1,11 @@
 <template>
   <div >
-    <nav>
-      <a href='/index'>
-        <i class="iconfont icon-shouye"></i>
-      </a>
-    </nav>
+    <login></login>
   </div>
 </template>
   
 <script>
+import login from './login'
 import bus from '../bus'
 export default {
   name: 'message',
@@ -27,6 +24,10 @@ export default {
 
   beforeDestroy(){
     bus.$emit("footerbarhide",true);
+  },
+
+  components:{
+    login
   }
 }
 </script>
